@@ -1,6 +1,6 @@
 name: teamcity
 services:
-  teamcity-database:
+  database:
     image: postgres:${POSTGRES_VERSION}
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -11,7 +11,7 @@ services:
     volumes:
       - pg-data:/var/lib/postgresql/data
 
-  teamcity-server:
+  server:
     image: jetbrains/teamcity-server:${TEAMCITY_VERSION}
     ports:
       - "8111:8111"
@@ -21,7 +21,7 @@ services:
     depends_on:
       - teamcity-database
 
-  teamcity-agent:
+  agent:
     image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}-linux-sudo
     environment:
       SERVER_URL: ${SERVER_URL}
