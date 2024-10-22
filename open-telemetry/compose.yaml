@@ -1,0 +1,21 @@
+services:
+  collector:
+    image: otel/opentelemetry-collector-contrib:${COLLECTOR_VERSION}
+    environment:
+      LOKI_ENDPOINT: ${LOKI_ENDPOINT}
+      OTLP_ENDPOINT: ${OTLP_ENDPOINT}
+    volumes:
+      - ./otel-config.yaml:/otel-config.yaml
+    command: ["--config=/otel-config.yaml"]
+    ports:
+      - "4317:4317"
+
+  grafana:
+    image: grafana/grafana:${GRAFANA_VERSION}
+    ports:
+      - "3000:3000"
+
+  loki:
+    image: grafana/loki:${LOKI_VERSION}
+    ports:
+      - "3100:3100"
