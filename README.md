@@ -1,2 +1,13 @@
-# compose
-Collection of useful docker compose files i a came across
+# Compose
+
+## Teamcity
+
+- database
+- server
+- agent
+
+## Open-Telemetry
+
+- collector
+- grafana
+- loki
