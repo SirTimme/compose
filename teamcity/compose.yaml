@@ -7,24 +7,24 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
     volumes:
       - pg-data:/var/lib/postgresql/data
 
   server:
     image: jetbrains/teamcity-server:${TEAMCITY_VERSION}
     ports:
-      - "8111:8111"
+      - "${TEAMCITY_SERVER_PORT}:8111"
     volumes:
       - server-data:/data/teamcity_server/datadir
       - server-logs:/opt/teamcity/logs
     depends_on:
-      - teamcity-database
+      - database
 
   agent:
     image: jetbrains/teamcity-agent:${TEAMCITY_VERSION}-linux-sudo
     environment:
-      SERVER_URL: ${SERVER_URL}
+      SERVER_URL: ${TEAMCITY_SERVER_URL}
       DOCKER_IN_DOCKER: start
       AGENT_NAME: agent_47
     privileged: true
